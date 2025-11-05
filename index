@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Winner Financial Portal - PCH</title>
+<!-- Load Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+'pch-blue': '#1e3a8a',   /* Dark Blue */
+'pch-gold': '#facc15',   /* Bright Gold/Yellow */
+'success-green': '#10b981', /* Bright Success Green */
+'danger-red': '#ef4444',
+'light-bg': '#f3f4f6',
+'card-bg': '#ffffff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+</script>
+<style>
+        /* Ensures the dashboard container is full height */
+        #dashboard-container {
+            min-height: 100vh;
+        }
+        /* Custom scrollbar for transaction history */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #d1d5db;
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background-color: #f3f4f6;
+        }
+</style>
+</head>
+<body class="bg-light-bg font-sans">
+
+<div id="dashboard-container" class="p-4 md:p-8">
+
+<!-- Header: PCH Winner Logo and Name -->
+<header class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center">
+<div class="flex items-center mb-4 md:mb-0">
+<img scr="pch1.png"
+<div class="inline-block p-2 rounded-full bg-pch-blue shadow-xl">
+<!-- Icon of a money bag/prize -->
+<svg class="w-6 h-6 text-pch-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8a6 6 0 00-6 6v7a2 2 0 002 2h12a2 2 0 002-2v-7a6 6 0 00-6-6zM12 8V6m0 4v2m0 4v2"></path>
+</svg>
+</div>
+<h1 class="text-3xl font-extrabold text-pch-blue ml-3">PCH Winner Portal</h1>
+</div>
+<div class="text-right">
+<p class="text-lg font-semibold text-gray-700">Welcome, <span id="user-name">Ray A Frasure</span></p>
+<p class="text-sm text-gray-500">Winner ID: <span id="user-id">PCH-2024-00123</span></p>
+</div>
+</header>
+
+<!-- Main Content Grid -->
+<main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+<!-- COLUMN 1: Account Summary & Navigation (LG: 1/3 Width) -->
+<div class="lg:col-span-1 space-y-6">
+
+<!-- Account Balance Card -->
+<div class="bg-card-bg p-6 rounded-xl shadow-lg border-t-4 border-pch-blue">
+<p class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Total Prize Balance</p>
+<p id="main-balance" class="text-5xl font-black text-pch-blue tracking-tighter">$68,000,000.00</p>
+<p class="text-success-green mt-2 text-sm font-semibold flex items-center">
+<svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.21a2 2 0 00-2.193-.578L13.75 6.75l-4 4-2.5-2.5a.75.75 0 00-1.06 1.06l3 3c.147.146.338.22.53.22h.001c.192 0 .383-.074.53-.22l4.5-4.5a.75.75 0 00-1.06-1.06l-4.5 4.5 2.5-2.5a.75.75 0 001.06 1.06l3-3a.75.75 0 00.53-.22h.001c.192 0 .383-.074.53-.22l4.5-4.5a.75.75 0 00-1.06-1.06z"></path></svg>
+                        Funds Verified & Secured
+</p>
+</div>
+
+<!-- Financial Metrics Cards (3 cards stacked on mobile, side-by-side on tablet/desktop) -->
+<div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-4">
+<div class="bg-card-bg p-4 rounded-xl shadow-md border-l-4 border-pch-gold">
+<p class="text-xs font-medium text-gray-500">Lifetime Earnings</p>
+<p id="card-lifetime" class="text-2xl font-bold text-gray-800">$68,000,000.00</p>
+</div>
+<div class="bg-card-bg p-4 rounded-xl shadow-md border-l-4 border-success-green">
+<p class="text-xs font-medium text-gray-500">Available to Withdraw</p>
+<p id="card-available" class="text-2xl font-bold text-gray-800">$67,995,500.00</p>
+</div>
+<div class="bg-card-bg p-4 rounded-xl shadow-md border-l-4 border-gray-400">
+<p class="text-xs font-medium text-gray-500">Prize ID</p>
+<p class="text-2xl font-bold text-gray-800">#JP68M</p>
+</div>
+</div>
+
+<!-- Navigation/Action Panel -->
+<div class="bg-card-bg p-4 rounded-xl shadow-lg">
+<h3 class="text-lg font-semibold text-pch-blue mb-4">Account Actions</h3>
+<nav class="space-y-2">
+<a href="#" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-light-bg transition duration-200" onclick="showContent('transfers'); return false;">
+<svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+<span class="font-medium">Make a Withdrawal / Transfer</span>
+</a>
+<a href="#" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-light-bg transition duration-200" onclick="showContent('documents'); return false;">
+<svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+<span class="font-medium">Tax & Legal Documents</span>
+</a>
+<a href="#" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-light-bg transition duration-200" onclick="showContent('profile'); return false;">
+<svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-5m-7-5v-1a2 2 0 012-2h4a2 2 0 012 2v1m-7 5v-1a2 2 0 012-2h4a2 2 0 012 2v1"></path></svg>
+<span class="font-medium">Manage Profile & Security</span>
+</a>
+<button onclick="showContent('transactions'); return false;" class="w-full text-left flex items-center p-3 rounded-lg text-gray-700 hover:bg-light-bg transition duration-200">
+<svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+<span class="font-medium">View Transactions</span>
+</button>
+</nav>
+</div>
+</div>
+
+<!-- COLUMN 2 & 3: Main Dashboard View (LG: 2/3 Width) -->
+<div class="lg:col-span-2 space-y-6">
+
+<!-- Dynamic Content Area -->
+<div id="dynamic-content" class="bg-card-bg p-6 rounded-xl shadow-lg border-t-4 border-pch-gold">
+
+<!-- DEFAULT VIEW: Recent Transactions -->
+<div id="transactions-content">
+<h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+<svg class="w-6 h-6 mr-2 text-pch-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2-3 .895-3 2 1.343 2 3 2m0-8c1.114 0 2-.886 2-2s-.886-2-2-2-2 .886-2 2 .886 2 2 2zM3 3h18M3 21h18M5 6l2-4h10l2 4M5 18l2 4h10l2-4"></path></svg>
+                            Recent Transaction History
+</h2>
+
+<div id="transaction-list" class="space-y-3 max-h-96 overflow-y-auto custom-scrollbar">
+<!-- Transactions populated by JS -->
+</div>
+</div>
+
+<!-- SUB-VIEW: Transfers (Now redirects) -->
+<div id="transfers-content" class="hidden">
+<h2 class="text-2xl font-bold text-gray-800 mb-6">Make a Withdrawal / Transfer</h2>
+<form id="transfer-form" class="space-y-4 p-4 border border-gray-200 rounded-lg" onsubmit="processTransfer(event); return false;">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="transfer-amount">Amount ($)</label>
+<input type="number" id="transfer-amount" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-pch-blue focus:border-pch-blue" placeholder="e.g., 500000.00" step="100.00">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="destination-bank">Destination Bank</label>
+<select id="destination-bank" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-pch-blue focus:border-pch-blue">
+<option value="Select Bank">Select Bank</option>
+<option value="Local Savings Account (Personal)">Local Savings Account (Personal)</option>
+<option value="Investment Portfolio (Brokerage)">Investment Portfolio (Brokerage)</option>
+<option value="Trust Fund Account (Legal)">Trust Fund Account (Legal)</option>
+</select>
+</div>
+</div>
+
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="account-number">Destination Account Number</label>
+<input type="text" id="account-number" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-pch-blue focus:border-pch-blue" placeholder="Enter Account/IBAN/Wire Number (8-16 digits)">
+<p class="text-xs text-gray-500 mt-1">For simulation, please enter 8 to 16 digits.</p>
+</div>
+
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1" for="transfer-ref">Reference/Memo</label>
+<input type="text" id="transfer-ref" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-pch-blue focus:border-pch-blue" placeholder="E.g., Down Payment for Home">
+</div>
+
+<!-- Dynamic Message Box for Success/Error -->
+<div id="transfer-message" class="p-3 hidden font-semibold text-sm rounded-lg text-center bg-white border"></div>
+
+<button type="submit" class="w-full bg-success-green hover:bg-opacity-90 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 shadow-md">
+                                Confirm Secure Transfer
+</button>
+<p class="text-sm text-gray-500 text-center mt-3">All large transfers are processed by your Prize Winning Agent.</p>
+</form>
+</div>
+
+<!-- NEW SUB-VIEW: Agent Contact Information -->
+<div id="agent-contact-content" class="hidden">
+<h2 class="text-2xl font-bold text-pch-blue mb-6 flex items-center">
+<svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20v-2a3 3 0 00-5.356-1.857M9 20V10"></path></svg>
+                            Withdrawal Information Required
+</h2>
+
+<div class="space-y-6">
+<div class="p-4 bg-yellow-50 border-l-4 border-pch-gold rounded-lg shadow-sm">
+<h3 class="font-bold text-lg text-gray-800 mb-2">Action Required: Contact Your Agent</h3>
+<p class="text-gray-700">
+                                    Official prize funds transfers (above initial setup) must be confirmed directly with your dedicated **Prize Winning Agent** for security and legal compliance.
+</p>
+</div>
+
+<div class="bg-light-bg p-6 rounded-lg shadow-md">
+<h4 class="text-xl font-semibold text-gray-800 mb-3">Your Prize Winning Agent Details</h4>
+<div class="space-y-3">
+<div class="flex items-center">
+<p class="w-32 font-medium text-gray-600">Name:</p>
+<p class="text-gray-900 font-semibold">Ms. Emily Davidson</p>
+</div>
+<div class="flex items-center">
+<p class="w-32 font-medium text-gray-600">Direct Line:</p>
+<p class="text-gray-900 font-semibold text-lg text-success-green">(800) 555-0199</p>
+</div>
+<div class="flex items-center">
+<p class="w-32 font-medium text-gray-600">Email:</p>
+<p class="text-gray-900 font-semibold">E.Davidson.PCH@secured.net</p>
+</div>
+<div class="flex items-center">
+<p class="w-32 font-medium text-gray-600">Office Hours:</p>
+<p class="text-gray-900">Mon-Fri, 9:00 AM - 5:00 PM EST</p>
+</div>
+</div>
+</div>
+
+<button onclick="showContent('transfers')" class="w-full bg-pch-blue text-white font-semibold py-3 px-4 rounded-lg hover:bg-opacity-90 transition duration-300 shadow-md">
+                                Return to Transfer Request
+</button>
+</div>
+</div>
+<!-- END NEW SUB-VIEW -->
+
+<!-- SUB-VIEW: Documents -->
+<div id="documents-content" class="hidden">
+<h2 class="text-2xl font-bold text-gray-800 mb-6">Tax & Legal Documents</h2>
+<ul class="space-y-3">
+<li class="flex justify-between items-center p-4 bg-light-bg rounded-lg hover:bg-gray-200 transition">
+<span class="font-medium text-gray-800">2025 W-2G Tax Form (Winnings)</span>
+<a href="#" class="text-pch-blue font-semibold hover:underline">Download PDF</a>
+</li>
+<li class="flex justify-between items-center p-4 bg-white rounded-lg border border-gray-300">
+<span class="font-medium text-gray-800">Official Prize Acceptance Agreement</span>
+<a href="#" class="text-pch-blue font-semibold hover:underline">View/Sign</a>
+</li>
+<li class="flex justify-between items-center p-4 bg-light-bg rounded-lg hover:bg-gray-200 transition">
+<span class="font-medium text-gray-800">Account Terms & Conditions</span>
+<a href="#" class="text-pch-blue font-semibold hover:underline">Download PDF</a>
+</li>
+</ul>
+</div>
+
+<!-- SUB-VIEW: Profile -->
+<div id="profile-content" class="hidden">
+<h2 class="text-2xl font-bold text-gray-800 mb-6">Profile & Security Settings</h2>
+<div class="space-y-4">
+<div class="p-4 bg-light-bg rounded-lg">
+<p class="font-medium text-gray-700">Full Name</p>
+<p class="text-lg text-gray-900 font-semibold">Ray A Frasure</p>
+</div>
+<div class="p-4 bg-light-bg rounded-lg">
+<p class="font-medium text-gray-700">Contact Email</p>
+<p class="text-lg text-gray-900 font-semibold">ray.a.frasure@example.com</p>
+</div>
+<div class="p-4 bg-light-bg rounded-lg flex justify-between items-center">
+<div>
+<p class="font-medium text-gray-700">Password</p>
+<p class="text-lg text-red-600 font-semibold">•••••••• (Requires Update)</p>
+</div>
+<button class="bg-pch-blue text-white py-2 px-4 rounded-lg hover:bg-opacity-90 transition">Update Password</button>
+</div>
+<div class="p-4 bg-light-bg rounded-lg">
+<p class="font-medium text-gray-700">Two-Factor Authentication (2FA)</p>
+<p class="text-lg text-success-green font-semibold">Enabled (SMS & App)</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Footer/Disclaimer -->
+<div class="text-center text-xs text-gray-400 pt-4">
+<p>Financial Data as of November 5, 2025. All figures are illustrative.</p>
+<p>© 2025 PCH Winner Services. Unauthorized access is prohibited.</p>
+</div>
+</div>
+</main>
+</div>
+
+<script>
+        // Initial state for the user's financial data
+        let userData = {
+            name: 'Ray A Frasure',
+            userId: 'PCH-2024-00123',
+            balance: 70000000.00,
+            transactions: [
+                { type: 'credit', description: 'Initial Prize Deposit', amount: 70000000.00, date: 'October 25, 2025', ref: '#PCH-START-001' },
+                { type: 'debit', description: 'Federal Tax Withholding', amount: 4000.00, date: 'October 26, 2025', ref: 'TAX-FED-WTH' },
+                { type: 'debit', description: 'Transfer to Personal Bank (First Draw)', amount: 500.00, date: 'November 1, 2025', ref: '#TX-P-001' },
+                { type: 'debit', description: 'Account Management Fee', amount: 50.00, date: 'November 1, 2025', ref: 'FEE-ACCT-NOV' },
+            ],
+        };
+
+        // --- DOM Elements ---
+        const navLinks = document.querySelectorAll('nav a');
+
+        /**
+         * Formats a number as currency string.
+         * @param {number} amount - The numeric amount.
+         * @returns {string} The formatted currency string.
+         */
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+            }).format(amount);
+        }
+
+        /**
+         * Calculates the current balance and updates all related displays.
+         */
+        function updateBalanceDisplay() {
+            // Recalculate balance based on transaction history
+            let currentBalance = userData.transactions.reduce((total, t) => {
+                if (t.type === 'credit') {
+                    return total + t.amount;
+                } else if (t.type === 'debit') {
+                    return total - t.amount;
+                }
+                return total;
+            }, 0);
+
+            userData.availableBalance = currentBalance;
+
+            // Update UI elements
+            document.getElementById('main-balance').textContent = formatCurrency(currentBalance);
+            document.getElementById('card-lifetime').textContent = formatCurrency(userData.transactions.find(t => t.description === 'Initial Prize Deposit').amount);
+            document.getElementById('card-available').textContent = formatCurrency(currentBalance);
+
+            renderTransactionList();
+        }
+
+        /**
+         * Renders the transaction history list dynamically.
+         */
+        function renderTransactionList() {
+            const listEl = document.getElementById('transaction-list');
+            listEl.innerHTML = ''; // Clear existing list
+
+            // Sort by date (newest first - simple sorting based on index for this example)
+            const sortedTransactions = [...userData.transactions].reverse();
+
+            sortedTransactions.forEach(t => {
+                const isCredit = t.type === 'credit';
+                const sign = isCredit ? '+' : '-';
+                const colorClass = isCredit ? 'text-success-green' : 'text-danger-red';
+                const bgColorClass = isCredit ? 'bg-green-50' : 'bg-red-50';
+
+                const transactionHtml = `
+<div class="flex justify-between items-center p-4 rounded-lg ${bgColorClass} border border-gray-100">
+<div>
+<p class="font-semibold text-gray-800">${t.description}</p>
+<p class="text-xs text-gray-500">${t.date} | Reference: ${t.ref}</p>
+</div>
+<span class="text-xl font-bold ${colorClass}">${sign}${formatCurrency(t.amount)}</span>
+</div>
+                `;
+                listEl.insertAdjacentHTML('beforeend', transactionHtml);
+            });
+             // Add a placeholder item at the end
+             listEl.insertAdjacentHTML('beforeend', '<div class="text-center p-4 text-gray-400 text-sm">-- All transactions shown --</div>');
+        }
+
+        /**
+         * Switches the content shown in the main panel and handles nav link styling.
+         * @param {string} contentId - The prefix of the content element to show (e.g., 'transfers').
+         */
+        function showContent(contentId) {
+            // Hide all sub-content areas. Updated list to include the new content.
+            ['transactions', 'transfers', 'documents', 'profile', 'agent-contact'].forEach(id => {
+                document.getElementById(id + '-content').classList.add('hidden');
+            });
+
+            // Show the requested content area
+            const targetElement = document.getElementById(contentId + '-content');
+            if (targetElement) {
+                targetElement.classList.remove('hidden');
+            }
+
+            // Update active navigation state
+            navLinks.forEach(link => {
+                // Clear active state on all links
+                link.classList.remove('bg-light-bg', 'text-pch-blue', 'font-bold');
+                link.classList.add('text-gray-700');
+
+                // Add active state to the current link, checking for the onclick attribute
+                if (link.getAttribute('onclick').includes(`'${contentId}'`)) {
+                    link.classList.remove('text-gray-700');
+                    link.classList.add('bg-light-bg', 'text-pch-blue', 'font-bold');
+                }
+            });
+            // Also update the dedicated transaction button since it's not in the navLinks query
+            const txButton = document.querySelector('button[onclick="showContent(\'transactions\'); return false;"]');
+            if (txButton) {
+                 txButton.classList.remove('bg-light-bg', 'text-pch-blue', 'font-bold');
+                 txButton.classList.add('text-gray-700');
+                 if (contentId === 'transactions') {
+                     txButton.classList.remove('text-gray-700');
+                     txButton.classList.add('bg-light-bg', 'text-pch-blue', 'font-bold');
+                 }
+            }
+
+
+            // If switching away from transfers, clear the message
+            if (contentId !== 'transfers') {
+                document.getElementById('transfer-message').classList.add('hidden');
+            }
+        }
+
+        /**
+         * Handles form submission: performs basic validation, shows processing message, and redirects to Agent Contact.
+         * @param {Event} event - The form submit event.
+         */
+        function processTransfer(event) {
+            event.preventDefault();
+
+            const amountInput = document.getElementById('transfer-amount');
+            const destinationInput = document.getElementById('destination-bank');
+            const accountNumberInput = document.getElementById('account-number');
+
+            const amount = parseFloat(amountInput.value);
+            const destination = destinationInput.value;
+            const accountNumber = accountNumberInput.value.trim();
+
+            const messageEl = document.getElementById('transfer-message');
+
+            messageEl.classList.add('hidden');
+
+            // --- Basic Validation ---
+            if (isNaN(amount) || amount <= 0 || destination === 'Select Bank' || accountNumber === '') {
+                messageEl.textContent = 'Please fill out all fields (Amount, Bank, and Account Number) to submit your request.';
+                messageEl.classList.remove('text-success-green', 'bg-green-100');
+                messageEl.classList.add('text-danger-red', 'bg-red-100', 'border-danger-red', 'border');
+                messageEl.classList.remove('hidden');
+                return;
+            }
+
+            // Simple fund check
+            if (amount > userData.availableBalance) {
+                messageEl.textContent = `Error: Insufficient available funds. You only have ${formatCurrency(userData.availableBalance)} available.`;
+                messageEl.classList.remove('text-success-green', 'bg-green-100');
+                messageEl.classList.add('text-danger-red', 'bg-red-100', 'border-danger-red', 'border');
+                messageEl.classList.remove('hidden');
+                return;
+            }
+
+            // Show processing message
+            messageEl.textContent = `Transfer request for ${formatCurrency(amount)} submitted. Reviewing details and redirecting...`;
+            messageEl.classList.remove('text-danger-red', 'bg-red-100', 'border-danger-red', 'border');
+            messageEl.classList.add('text-pch-blue', 'bg-blue-100', 'border-pch-blue', 'border');
+            messageEl.classList.remove('hidden');
+
+            // Simulate processing delay and redirect to Agent Contact page
+            setTimeout(() => {
+                document.getElementById('transfer-form').reset();
+                messageEl.classList.add('hidden');
+                showContent('agent-contact');
+            }, 1500);
+        }
+
+        // Initialize the dashboard when the script loads
+        window.onload = function() {
+            updateBalanceDisplay();
+            showContent('transactions'); // Ensure the default tab is active and highlighted
+        };
+</script>
+</body>
+</html>
+
+
